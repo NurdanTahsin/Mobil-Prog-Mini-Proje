@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Teknik Destek Formu",
+    "slug": "teknik-destek-formu",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true
+  }
+}
