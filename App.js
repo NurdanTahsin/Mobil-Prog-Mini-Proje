@@ -3,12 +3,15 @@ import {
   Alert,
   FlatList,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+} from 'react-native-safe-area-context';
 
 const CATEGORIES = ['Yazılım', 'Donanım', 'Ağ'];
 const STATUS_OPTIONS = ['Bekliyor', 'İşlemde', 'Tamamlandı'];
@@ -152,62 +155,64 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.pageTitle}>Teknik Destek Formu</Text>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.pageTitle}>Teknik Destek Formu</Text>
 
-      <View style={styles.formSection}>
-        <TextInput
-          placeholder="Başlık"
-          value={title}
-          onChangeText={setTitle}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Açıklama"
-          value={description}
-          onChangeText={setDescription}
-          style={[styles.input, styles.descriptionInput]}
-          multiline
-          textAlignVertical="top"
-        />
+        <View style={styles.formSection}>
+          <TextInput
+            placeholder="Başlık"
+            value={title}
+            onChangeText={setTitle}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Açıklama"
+            value={description}
+            onChangeText={setDescription}
+            style={[styles.input, styles.descriptionInput]}
+            multiline
+            textAlignVertical="top"
+          />
 
-        <Text style={styles.sectionLabel}>Kategori Seç</Text>
-        <View style={styles.rowWrap}>
-          {CATEGORIES.map((option) =>
-            renderChipButton(option, category === option, () => setCategory(option))
-          )}
+          <Text style={styles.sectionLabel}>Kategori Seç</Text>
+          <View style={styles.rowWrap}>
+            {CATEGORIES.map((option) =>
+              renderChipButton(option, category === option, () => setCategory(option))
+            )}
+          </View>
+
+          <Pressable style={styles.saveButton} onPress={handleSave}>
+            <Text style={styles.saveButtonText}>Kaydet</Text>
+          </Pressable>
         </View>
 
-        <Pressable style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>Kaydet</Text>
-        </Pressable>
-      </View>
-
-      <View style={styles.filterSection}>
-        <Text style={styles.sectionLabel}>Duruma Göre Filtrele</Text>
-        <View style={styles.rowWrap}>
-          {FILTER_OPTIONS.map((filter) =>
-            renderChipButton(
-              filter,
-              activeFilter === filter,
-              () => setActiveFilter(filter)
-            )
-          )}
+        <View style={styles.filterSection}>
+          <Text style={styles.sectionLabel}>Duruma Göre Filtrele</Text>
+          <View style={styles.rowWrap}>
+            {FILTER_OPTIONS.map((filter) =>
+              renderChipButton(
+                filter,
+                activeFilter === filter,
+                () => setActiveFilter(filter)
+              )
+            )}
+          </View>
         </View>
-      </View>
 
-      <FlatList
-        data={filteredRequests}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>Kayıt bulunamadı</Text>
-        }
-        contentContainerStyle={
-          filteredRequests.length === 0 ? styles.emptyContainer : styles.listContainer
-        }
-      />
-    </SafeAreaView>
+        <FlatList
+          data={filteredRequests}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>Kayıt bulunamadı</Text>
+          }
+          contentContainerStyle={
+            filteredRequests.length === 0 ? styles.emptyContainer : styles.listContainer
+          }
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -215,28 +220,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#f5e9e4',
   },
   pageTitle: {
     fontSize: 24,
     fontWeight: '700',
     marginBottom: 12,
-    color: '#111827',
+    color: '#4a1f1a',
   },
   formSection: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fffaf7',
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#d1d5db',
+    borderColor: '#d6b8ad',
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 10,
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#fffdfb',
   },
   descriptionInput: {
     minHeight: 80,
@@ -244,7 +249,7 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontWeight: '600',
     marginBottom: 8,
-    color: '#111827',
+    color: '#4a1f1a',
   },
   rowWrap: {
     flexDirection: 'row',
@@ -254,25 +259,25 @@ const styles = StyleSheet.create({
   },
   chip: {
     borderWidth: 1,
-    borderColor: '#9ca3af',
+    borderColor: '#b98273',
     borderRadius: 999,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#fff',
+    backgroundColor: '#fffaf7',
   },
   chipSelected: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    backgroundColor: '#9f2f2f',
+    borderColor: '#9f2f2f',
   },
   chipText: {
-    color: '#111827',
+    color: '#6b2a20',
     fontWeight: '500',
   },
   chipTextSelected: {
     color: '#fff',
   },
   saveButton: {
-    backgroundColor: '#16a34a',
+    backgroundColor: '#7f1d1d',
     borderRadius: 10,
     paddingVertical: 12,
     alignItems: 'center',
@@ -283,7 +288,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   filterSection: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fffaf7',
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
@@ -292,12 +297,12 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#fffaf7',
     borderRadius: 12,
     padding: 12,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: '#d6b8ad',
   },
   cardHeader: {
     flexDirection: 'row',
@@ -307,35 +312,35 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111827',
+    color: '#4a1f1a',
     flex: 1,
     marginRight: 8,
   },
   statusBadge: {
-    backgroundColor: '#e5e7eb',
+    backgroundColor: '#ead5cd',
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
   statusBadgeText: {
-    color: '#374151',
+    color: '#6b2a20',
     fontWeight: '600',
     fontSize: 12,
   },
   cardDetail: {
     marginTop: 10,
     borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
+    borderTopColor: '#d6b8ad',
     paddingTop: 10,
     gap: 6,
   },
   detailText: {
-    color: '#1f2937',
+    color: '#4a2a24',
     lineHeight: 20,
   },
   detailLabel: {
     fontWeight: '700',
-    color: '#111827',
+    color: '#4a1f1a',
   },
   statusButtons: {
     flexDirection: 'row',
@@ -350,7 +355,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   emptyText: {
-    color: '#6b7280',
+    color: '#8a5145',
     fontSize: 16,
     fontWeight: '500',
   },

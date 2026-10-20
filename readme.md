@@ -1,6 +1,6 @@
 # Akıllı Arıza Talep Yönetimi (Hafta 5 Mini Proje)
 
-Bu proje, Mobil Programlama dersi Hafta 5 laboratuvar çalışması kapsamında geliştirilmiş bir teknik destek ve arıza bildirim uygulamasıdır. React Native ve Expo kullanılarak geliştirilmiştir.
+Bu proje, Mobil Programlama dersi Hafta 5 laboratuvar çalışması kapsamında geliştirilmiş bir teknik destek ve arıza bildirim uygulamasıdır. React Native ve Expo SDK 57 kullanılarak geliştirilmiştir.
 
 ## Kurulum ve Çalıştırma Yönergeleri
 
@@ -30,15 +30,23 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
 ## Ekran Görüntüleri
 
-1. **Form Ekranı:** [Görsel daha sonra eklenecek]
-2. **Talep Listesi:** [Görsel daha sonra eklenecek]
-3. **Filtre ve Etkileşim Sonucu:** [Görsel daha sonra eklenecek]
+1. **Form Ekranı**
+
+   <img src="./assets/anasayfa.jpeg" alt="Teknik destek formu" width="300">
+
+2. **Talep Listesi**
+
+   <img src="./assets/anasayfa2.jpeg" alt="Talep listesi" width="300">
+
+3. **Filtre ve Etkileşim Sonucu**
+
+   <img src="./assets/filtre.jpeg" alt="Duruma göre filtreleme" width="300">
 
 ---
 
 ## Bölüm B: Kişisel Tasarım ve Olay Akışları
 
-**Ekran Taslakları Çizimi:** [Çizim görseli daha sonra eklenecek]
+**Ekran Taslakları Çizimi:** Uygulamanın ekran taslağı, aşağıdaki uygulama ekran görüntüleriyle birlikte gösterilmiştir.
 
 **1. Başarılı Kayıt Akışı:**
 * **Eylem:** Kullanıcı "Kaydet" butonuna basar.
@@ -46,17 +54,30 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 * **State Değişikliği:** Yeni nesne benzersiz bir id ile `requests` state dizisine eklenir.
 * **Sonuç:** Form temizlenir, listeye yeni kart eklenir ve "Başarıyla eklendi" Alert bildirimi verilir.
 
+<img src="./assets/talep-ekleme-basarili.jpeg" alt="Başarılı talep ekleme bildirimi" width="300">
+
 **2. Geçersiz Kayıt Akışı:**
 * **Eylem:** Kullanıcı alanlar boşken "Kaydet"e basar.
 * **Kontrol:** `.trim()` ile yapılan doğrulama başarısız olur.
 * **State Değişikliği:** Herhangi bir state değişikliği yapılmaz.
 * **Sonuç:** Kullanıcıya "Başlık ve açıklama boş bırakılamaz" uyarısı gösterilir.
 
+<img src="./assets/bos-kaydetme-hata.jpeg" alt="Boş form doğrulama uyarısı" width="300">
+
 **3. Uzun Basma ile Silme Akışı:**
 * **Eylem:** Kullanıcı listedeki karta uzun basar (`onLongPress`).
 * **Kontrol:** "Bu kaydı silmek istediğinize emin misiniz?" onay penceresi açılır.
 * **State Değişikliği:** Onaylanırsa, seçili ID dizi içinden filtrelenerek `requests` state'i güncellenir.
 * **Sonuç:** Kart listeden silinir ve kullanıcıya bilgi verilir.
+
+<img src="./assets/talep-silme.jpeg" alt="Talep silme onayı" width="300">
+
+**4. Durum Güncelleme Akışı:**
+* **Eylem:** Kullanıcı talep detayındaki durumlardan birine basar.
+* **State Değişikliği:** Seçilen talebin `status` değeri güncellenir.
+* **Sonuç:** Kart üzerindeki durum etiketi yeni değeri gösterir.
+
+<img src="./assets/durum-güncellendi.jpeg" alt="Güncellenmiş talep durumu" width="300">
 
 **Tasarım Kararı:**
 Kategoriler ve filtreler için klasik bir açılır liste (dropdown) yerine yan yana hizalanmış çipler (seçilebilir butonlar) tasarladım. Bu tercih, mobil cihazlarda veri girişini oldukça hızlandırmakta ve kullanıcının tüm seçenekleri tek bakışta görmesini sağlamaktadır.
